@@ -1,3 +1,3 @@
 # amh_cms
 
-Alpha project consisting of Demo-app consuming the AMH API.
+Alpha project consisting of a Demo-app consuming the AMH API.

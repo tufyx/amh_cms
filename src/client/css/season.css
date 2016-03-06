@@ -1,0 +1,39 @@
+.season {
+	padding: 10px;
+	float: none;
+	overflow: auto;
+	position: relative;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 10px;
+	border-color: #ddd;
+	margin: 10px;	
+	-webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+.season-list {
+	padding: 10px;
+}
+
+.season-toolbar {
+	width: 220px;
+	float: right;
+	display: block;
+}
+
+.season-hover {
+	background-color: #EEEEEE;
+}
+
+.season-name {
+	float: left;
+	vertical-align: middle;
+}
+
+.date-picker {
+	width: 200px;
+}

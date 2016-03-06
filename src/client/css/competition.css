@@ -1,0 +1,35 @@
+.competition {
+	padding: 10px;
+	float: none;
+	overflow: auto;
+	position: relative;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 10px;
+	border-color: #ddd;
+	margin: 10px;	
+	-webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+.competition-list {
+	padding: 10px;
+}
+
+.competition-toolbar {
+	width: 220px;
+	float: right;
+	display: block;
+}
+
+.competition-hover {
+	background-color: #EEEEEE;
+}
+
+.competition-name {
+	float: left;
+	vertical-align: middle;
+}

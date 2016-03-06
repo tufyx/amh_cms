@@ -1,0 +1,29 @@
+{
+  "name": "react-test",
+  "version": "1.0.0",
+  "description": "Test project for React, React-DOM, React-Router",
+  "main": "client.js",
+  "scripts": {
+    "test": "test"
+  },
+  "keywords": [
+    "react",
+    "dom",
+    "route"
+  ],
+  "author": "tufyx",
+  "license": "ISC",
+  "devDependencies": {
+    "babel": "^6.3.26",
+    "babel-core": "^6.4.5",
+    "babel-loader": "^6.2.1",
+    "css-loader": "^0.23.1",
+    "history": "^1.17.0",
+    "react": "^0.14.6",
+    "react-bootstrap": "^0.28.2",
+    "react-dom": "^0.14.6",
+    "react-router": "^1.0.3",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.12"
+  }
+}

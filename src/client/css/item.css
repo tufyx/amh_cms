@@ -1,0 +1,64 @@
+.toolbar {
+	margin-bottom: 10px;
+}
+
+.list {
+	float: none;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.item {
+	display: inline-block;
+	float: none;
+	position: relative;
+	width: 300px;
+	height: 200px;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 10px;
+	border-color: #ddd;
+	margin: 20px;	
+	-webkit-transition: background-color 300ms linear;
+    -moz-transition: background-color 300ms linear;
+    -o-transition: background-color 300ms linear;
+    -ms-transition: background-color 300ms linear;
+    transition: background-color 300ms linear;
+}
+
+.item-hover {
+	background-color: #EEEEEE;
+}
+
+.item-toolbar {
+	position: absolute;
+	width: 100%;
+	padding: 5px 10px 5px 10px;
+	bottom: 5px;
+}
+
+.item-action-button {
+	width: 100px;
+}
+
+.item-action-button-delete {
+	float: right;
+}
+
+.side-by-side {
+	float: none;
+	overflow: auto;
+	position: relative;
+}
+
+.left {
+	float: left;
+	margin-right: 20px;
+}
+
+.right {
+	float: left;
+	width: 50px;
+	margin-top: 20px;
+	vertical-align: middle;
+}

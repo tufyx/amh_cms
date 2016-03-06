@@ -1,0 +1,8 @@
+archive
+node_modules
+dist
+.editorconfig
+.jscsrc
+.jshintrc
+.project
+.travis.yml

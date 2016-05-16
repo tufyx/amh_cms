@@ -9,7 +9,7 @@ const Menu = React.createClass({
 		    	<div className="navbar-header">
 		      		<a className="navbar-brand" href="http://cms.amh.com/src/index.html">
 		      			<span className="glyphicon glyphicon-align-left" aria-hidden="true"></span> 
-		      			AMH CMS
+		      			AMH Admin Console
 		      		</a>
 		    	</div>
 				<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

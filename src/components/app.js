@@ -3,14 +3,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import Menu from './menu.js'
-import {SeasonBox} from './seasons/container.js'
-import {CompetitionBox} from './competitions/container.js'
-import {LevelBox} from './levels/container.js'
-import {ClubBox} from './clubs/container.js'
-import {TeamBox} from './teams/container.js'
-import {VenueBox} from './venues/container.js'
-import {RefereeBox} from './referees/container.js'
-import {PlayerBox} from './players/container.js'
+import { SeasonBox } from './seasons/container.js'
+import { CompetitionBox } from './competitions/container.js'
+import { LevelBox } from './levels/container.js'
+import { ClubBox } from './clubs/container.js'
+import { TeamBox } from './teams/container.js'
+import { VenueBox } from './venues/container.js'
+import { RefereeBox } from './referees/container.js'
+import { PlayerBox } from './players/container.js'
 
 const App = React.createClass({
   render() {

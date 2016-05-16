@@ -1,109 +1,109 @@
 import React from 'react'
+import { Provider} from 'react-redux'
+import { createStore } from 'redux'
 
-import {SeasonService} from "../../services/SeasonService.js"
+import seasonsReducer from './reducers'
+import { addSeasonAction, didFetchDataAction } from './actions'
+import SeasonService from "../../services/SeasonService.js"
+import { SectionHeader } from '../general/section_header.js'
+import { SeasonAddEditForm } from "./form.js"
+import { SeasonList } from "./list.js"
 
-import {SectionHeader} from '../general/section_header.js'
-import {SeasonAddEditForm} from "./form.js"
-import {SeasonList} from "./list.js"
+const store = createStore(seasonsReducer);
 
-export var SeasonBox = React.createClass({
-  	getInitialState: function() {
-    	return {
-    		data: [],
-    		nextPage: null,
-    		selectedItem: null
-    	};
-  	},
+export class SeasonBox extends React.Component {
   	
-  	componentDidMount: function() {
-  		addEventListener("EXPAND_FORM", this.expandForm);
-  		addEventListener("ITEM_CLICK", this.didClickItem);
-  		addEventListener("ADD_SEASON", this.addSeasonListener);
-    	addEventListener("EDIT_SEASON", this.editSeasonListener);
-    	addEventListener("DELETE_SEASON", this.deleteSeasonListener);
-  		window.addEventListener("scroll", this.handleScroll);
-  		
-    	this.seasonService = new SeasonService("http://127.0.0.1:8000/api");
-    	this.seasonService.getSeasonList(
-    		this.getSeasonsCompletionHandler, 
-    		this.getSeasonsErrorHandler, 
-    		this.state.nextPage
-    	);
-  	},
+    constructor(props) {
+      super(props);
+    }
 
-	expandForm: function() {
-		this.addEdit(null);
-  	},
+  	componentDidMount() {
+      store.subscribe(() =>
+        this.forceUpdate()
+      );
+      this.seasonService = new SeasonService("http://127.0.0.1:8000/api");
+      this.seasonService.getSeasonList(
+        this.getSeasonsCompletionHandler, 
+        this.getSeasonsErrorHandler, 
+        store.getState().nextPage
+      );
+    }
+
+    componentWillUnmount() {
+      this.unsubscribe();
+    }
+
+  	expandForm() {
+  		this.addEdit(null);
+    }
+    	
+  	didClickItem(e) {
+  		this.addEdit(e.detail);
+  	}
   	
-  	didClickItem: function(e) {
-		this.addEdit(e.detail);
-	},
-	
-	addEdit: function(item) {
-		this.setState({
-			selectedItem: item
-		});
-		$('#addEditForm').animate({height:"show"},200);
-	},
-	
-	collapse: function() {
-		$('#addEditForm').animate({height:"hide"},200);
-	},
+  	addEdit(item) {
+      store.dispatch(editSeasonAction(item));
+  		$('#addEditForm').animate({height:"show"},200);
+  	}
   	
-  	getSeasonsCompletionHandler: function(result) {
-  		this.setState(
-  			{
-  				data: this.state.data.concat(result.data.results), 
-  				nextPage: result.data.next
-  			}
+  	collapse() {
+  		$('#addEditForm').animate({height:"hide"},200);
+  	}
+  	
+  	getSeasonsCompletionHandler(result) {
+      store.dispatch(
+        didFetchDataAction(
+          result.data.results, 
+          result.data.next
+        )
+      );
+  	}
+  	
+  	getSeasonsErrorHandler(error) {
+  		console.error(error.toString());
+  	}
+  	
+  	addSeasonListener(e) {
+  		this.seasonService.createSeason(
+  			e.detail, 
+  			this.createUpdateSeasonCompletionHandler, 
+  			this.createUpdateSeasonErrorHandler
+  		);	
+  	}
+  	
+  	editSeasonListener(e) {
+  		this.seasonService.editSeason(
+  			e.detail, 
+  			this.createUpdateSeasonCompletionHandler,
+  			this.createUpdateSeasonErrorHandler
   		);
-  	},
+  	}
   	
-  	getSeasonsErrorHandler: function(error) {
-  		console.error(error.toString());
-  	},
+  	deleteSeasonListener(e) {
+  		this.seasonService.deleteSeason(
+  			e.detail, 
+  			this.deleteSeasonCompletionHandler, 
+  			this.deleteSeasonErrorHandler
+  		);
+  	}
   	
-  	addSeasonListener: function(e) {
-		this.seasonService.createSeason(
-			e.detail, 
-			this.createUpdateSeasonCompletionHandler, 
-			this.createUpdateSeasonErrorHandler
-		);	
-	},
-	
-	editSeasonListener: function(e) {
-		this.seasonService.editSeason(
-			e.detail, 
-			this.createUpdateSeasonCompletionHandler,
-			this.createUpdateSeasonErrorHandler
-		);
-	},
-	
-	deleteSeasonListener: function(e) {
-		this.seasonService.deleteSeason(
-			e.detail, 
-			this.deleteSeasonCompletionHandler, 
-			this.deleteSeasonErrorHandler
-		);
-	},
-  	
-  	createUpdateSeasonCompletionHandler: function(result) {
+  	createUpdateSeasonCompletionHandler(result) {
   		console.log("data successfully added");
-  	},
+  	}
   	
-  	createUpdateSeasonErrorHandler: function(error) {
+  	createUpdateSeasonErrorHandler(error) {
   		console.error(error.toString());
-  	},
+  	}
   	
-  	deleteSeasonCompletionHandler: function(result) {
+  	deleteSeasonCompletionHandler(result) {
   		console.log("season successfully deleted");
-  	},
+  	}
   	
-  	deleteSeasonErrorHandler: function(error) {
+  	deleteSeasonErrorHandler(error) {
   		console.error(error.toString());
-  	},
+  	}
   	
-  	handleScroll: function(event) {
+  	handleScroll(event) {
   		if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
   			if (this.state.nextPage) {
   				this.seasonService.getSeasonList(
@@ -113,18 +113,20 @@ export var SeasonBox = React.createClass({
   				);	
   			}
     	}
-  	},
+  	}
   	
-	render: function() {
-		return (
-      		<div>
-        		<SectionHeader name="Seasons"/>
-        		<SeasonAddEditForm 
-        			completionHandler={this.collapse} 
-        			selectedItem={this.state.selectedItem}
-        		/>
-        		<SeasonList data={this.state.data}/>
-      		</div>
-    	);
-  }
-});
+  	render() {
+  		return (
+            <Provider store={store}>
+              <div>
+            		<SectionHeader name="Seasons"/>
+            		<SeasonAddEditForm 
+            			completionHandler={this.collapse} 
+            			selectedItem={store.getState().selectedItem}
+            		/>
+            		<SeasonList />
+              </div>
+            </Provider>
+      	);
+    }
+}

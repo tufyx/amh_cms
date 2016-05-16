@@ -3,9 +3,27 @@ import "../../css/season.css"
 import {Season} from "./season.js"
 import React from 'react'
 
-export var SeasonList = React.createClass({
-  render: function() {
-  	var seasonNodes = this.props.data.map(function(season, index) {
+export class SeasonList extends React.Component {
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    const { store } = this.context;
+    store.subscribe(() => 
+      this.forceUpdate()
+    );
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
+    const { store } = this.context;
+    const state = store.getState();
+  	var seasonNodes = state.data.seasons.map(function(season, index) {
   	  var key = season.id + "_" + index;
       return (
         <Season season={season} key={key} id={index}>A season</Season>
@@ -16,6 +34,10 @@ export var SeasonList = React.createClass({
       <div className="season-list">
       	{seasonNodes}
       </div>
-    );
+    )
   }
-});
+}
+
+SeasonList.contextTypes = {
+  store: React.PropTypes.object
+};

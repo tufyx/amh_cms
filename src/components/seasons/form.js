@@ -2,12 +2,17 @@ import "../../css/item.css"
 import React from 'react'
 import DatePicker from "react-bootstrap-date-picker"
 
-export var SeasonAddEditForm = React.createClass({
-	componentDidMount: function() {
+export class SeasonAddEditForm extends React.Component {
+
+	constructor(props) {
+      super(props);
+    }
+
+	componentDidMount() {
 		$('#addEditForm').hide()
-	},
+	}
 	
-	saveItem: function() {
+	saveItem() {
 		var seasonName = $('#seasonName').val();
 		var seasonId = this.props.selectedItem != null ? this.props.selectedItem.id : undefined;
 		var season = {
@@ -17,13 +22,13 @@ export var SeasonAddEditForm = React.createClass({
 			'endDate': new Date($('#endDate').val()).toISOString().slice(0,10)
 			};
 		dispatchEvent(new CustomEvent(seasonId == undefined ? "ADD_SEASON" : "EDIT_SEASON", { 'detail': season }));
-	},
+	}
 	
-	cancelAction: function() {
+	cancelAction() {
 		this.props.completionHandler()
-	},
+	}
 	
-	render: function() {
+	render() {
 		var title = this.props.selectedItem != undefined ? "Edit season" : "Add new season";
 		$('#seasonName').val(this.props.selectedItem != undefined ? this.props.selectedItem.name : "");
 		var startDate = new Date().toISOString();
@@ -51,4 +56,8 @@ export var SeasonAddEditForm = React.createClass({
 			</div>
 		)
 	}
-});
+}
+
+SeasonAddEditForm.contextTypes = {
+  store: React.PropTypes.object
+};

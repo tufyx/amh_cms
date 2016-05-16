@@ -1,4 +1,4 @@
-export class SeasonService {
+export default class SeasonService {
 	constructor(url) {
 		this.baseUrl = url + '/seasons/';	
 	}

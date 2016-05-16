@@ -17,11 +17,11 @@ export var CompetitionAddEditForm = React.createClass({
 		var competition = {
 			'id': competitionId,
 			'name': competitionName,
+			'legs': competitionLegs,
 			'level': competitionLevel,
 			'season': competitionSeason,
-			'teams': competitionTeams 
+			'teams': competitionTeams,			 
 		};
-		console.log(competition);
 		dispatchEvent(new CustomEvent(competitionId == undefined ? "ADD_COMPETITION" : "EDIT_COMPETITION", { 'detail': competition }));
 	},
 	

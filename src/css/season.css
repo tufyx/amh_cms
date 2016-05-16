@@ -5,8 +5,9 @@
 	position: relative;
 	border-style: solid;
 	border-width: 1px;
-	border-radius: 10px;
 	border-color: #ddd;
+	box-shadow: 2px 3px 5px #DDDDDD;
+	background-color: #F0F0F0;
 	margin: 10px;	
 	-webkit-transition: background-color 300ms linear;
     -moz-transition: background-color 300ms linear;

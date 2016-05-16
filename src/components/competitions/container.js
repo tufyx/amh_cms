@@ -27,10 +27,10 @@ export var CompetitionBox = React.createClass({
   		addEventListener("ADD_COMPETITION", this.addCompetitionListener);
     	addEventListener("EDIT_COMPETITION", this.editCompetitionListener);
     	addEventListener("DELETE_COMPETITION", this.deleteCompetitionListener);
-		window.addEventListener("scroll", this.handleScroll);
+		  window.addEventListener("scroll", this.handleScroll);
     	
   		this.levelService = new LevelService("http://127.0.0.1:8000/api");
-		this.seasonService = new SeasonService("http://127.0.0.1:8000/api");
+		  this.seasonService = new SeasonService("http://127.0.0.1:8000/api");
     	this.competitionService = new CompetitionService("http://127.0.0.1:8000/api");
     	
     	this.competitionService.getCompetitionList(
@@ -70,6 +70,7 @@ export var CompetitionBox = React.createClass({
   	},
   	
   	addCompetitionListener: function(e) {
+      console.log(e);
 		this.competitionService.createCompetition(
 			e.detail, 
 			this.createUpdateCompetitionCompletionHandler, 
